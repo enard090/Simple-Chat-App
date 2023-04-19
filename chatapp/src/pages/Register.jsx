@@ -29,12 +29,17 @@ const Register = () => {
 
       await uploadBytesResumable(storageRef, file).then(() => {
         getDownloadURL(storageRef).then(async (downloadURL) => {
+          
           try {
             //Update profile
+            
             await updateProfile(res.user, {
               displayName,
               photoURL: downloadURL,
+              
             });
+            
+            
             //create user on firestore
             await setDoc(doc(db, "users", res.user.uid), {
               uid: res.user.uid,
@@ -42,6 +47,7 @@ const Register = () => {
               email,
               photoURL: downloadURL,
             });
+            
 
             //create empty user chats on firestore
             await setDoc(doc(db, "userChats", res.user.uid), {});
@@ -52,12 +58,14 @@ const Register = () => {
             setLoading(false);
           }
         });
+        
       });
     } catch (err) {
       setErr(true);
       setLoading(false);
       alert("Email or Display name already Existed!")
     }
+    
   };
 
   return (
@@ -71,11 +79,13 @@ const Register = () => {
           <input required type="password" placeholder="password" />
           <input required style={{ display: "none" }} type="file" id="file" />
           <label htmlFor="file">
+            
             <img src={Add} alt="" />
+            
             <span>Add an avatar</span>
           </label>
           <button disabled={loading}>Sign up</button>
-          {loading && <span align = "center">Please wait...</span>}
+          {loading && <span align = "center" color="white">Please wait...</span>}
         </form>
         <p>
           You do have an account? <Link to="/Login">Login</Link>

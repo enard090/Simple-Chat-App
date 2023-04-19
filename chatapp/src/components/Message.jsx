@@ -29,12 +29,8 @@ const Message = ({ message }) => {
         <span>just now</span>
       </div>
       <div className="messageContent">
-        <p>{message.text }
-        </p>
-        <div></div>
-        <p>
+        <p>{message.text}</p>
         {message.img && <img src={message.img} alt="" />}
-        </p>
       </div>
     </div>
   );
